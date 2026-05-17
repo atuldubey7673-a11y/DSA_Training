@@ -1,20 +1,11 @@
-int reverse(int x) {
-    int rev = 0;
-
-    while (x != 0) {
-        int digit = x % 10;
-        x = x / 10;
-
-    
-        if (rev > 214748364 || (rev == 214748364 && digit > 7))
+int reverse(int x){
+    int reverse_num=0,i,temp=0;
+    for(temp=x;temp;temp=temp/10)
+    {
+         if(reverse_num > INT_MAX/10 || reverse_num < INT_MIN/10)
             return 0;
-
-       
-        if (rev < -214748364 || (rev == -214748364 && digit < -8))
-            return 0;
-
-        rev = rev * 10 + digit;
+        reverse_num=reverse_num*10+(temp%10);
     }
+    return reverse_num;
 
-    return rev;
 }
