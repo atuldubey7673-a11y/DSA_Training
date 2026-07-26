@@ -1,15 +1,23 @@
-
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
         int n = nums.size();
 
-        int expected = n * (n + 1) / 2;
-        int actual = 0;
+        for (int i = 0; i <= n; i++) {
+            int flag = 0;
 
-        for (int x : nums)
-            actual += x;
+            for (int j = 0; j < n; j++) {
+                if (nums[j] == i) {
+                    flag = 1;
+                    break;
+                }
+            }
 
-        return expected - actual;
+            if (flag == 0) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 };
