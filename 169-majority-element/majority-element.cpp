@@ -9,11 +9,11 @@ public:
                     count++;
                 }
             }
-                if (count > n / 2) {
-                    return nums[i];
-                }
+            if (count > n / 2) {
+                return nums[i];
             }
-        
+        }
+
         return -1;
     }
 };
