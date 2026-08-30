@@ -1,7 +1,7 @@
 class Solution {
 public:
     int characterReplacement(string s, int k) {
-  
+
         int l = 0;
         int r = 0;
         int maxlen = 0;
@@ -14,7 +14,7 @@ public:
 
             maxfre = max(maxfre, hash[s[r] - 'A']);
 
-            while ((r - l + 1) - maxfre > k) {
+            if ((r - l + 1) - maxfre > k) {
                 hash[s[l] - 'A']--;
 
                 maxfre = 0;
@@ -34,19 +34,18 @@ public:
         return maxlen;
     }
 };
-        // int n=s.size();
-        // int maxlen=0;
-        // for(int i=0;i<n;i++){
-        //     int hash[26]={0};
-        //     int maxfre=0;
-        //     for(int j=i;j<n;j++){
-        //         hash[s[j]-'A']++;
-        //         maxfre=max(maxfre,hash[s[j]-'A']);
-        //         int changes=(j-i+1)-maxfre;
-        //         if(changes<=k){
-        //             maxlen=max(maxlen,j-i+1);
-        //         }
-        //     }
-        // }
-        // return maxlen;
-      
+// int n=s.size();
+// int maxlen=0;
+// for(int i=0;i<n;i++){
+//     int hash[26]={0};
+//     int maxfre=0;
+//     for(int j=i;j<n;j++){
+//         hash[s[j]-'A']++;
+//         maxfre=max(maxfre,hash[s[j]-'A']);
+//         int changes=(j-i+1)-maxfre;
+//         if(changes<=k){
+//             maxlen=max(maxlen,j-i+1);
+//         }
+//     }
+// }
+// return maxlen;
