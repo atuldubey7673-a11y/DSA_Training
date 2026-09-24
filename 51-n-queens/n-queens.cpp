@@ -1,54 +1,55 @@
 class Solution {
 public:
-    vector<vector<string>> ans;
+    bool isSafe(int row, int col, vector<string>& board, int n) {
+        // upper left diagonal
+        int r = row;
+        int c = col;
+        while (r >= 0 && c >= 0) {
+            if (board[r][c] == 'Q')
+                return false;
+            r--;
+            c--;
+        }
+        // left row
+         r = row;
+         c = col;
+        while (c >= 0) {
+            if (board[r][c] == 'Q')
+                return false;
 
-    void solve(int row, int n, vector<string>& board,
-               vector<bool>& col,
-               vector<bool>& diag1,
-               vector<bool>& diag2) {
-
-        // All queens placed
-        if (row == n) {
+            c--;
+        }
+        // lower left diagonal
+         r = row;
+         c = col;
+        while (r < n && c >= 0) {
+            if (board[r][c] == 'Q')
+                return false;
+            r++;
+            c--;
+        }
+        return true;
+    }
+    void solve(int col, vector<vector<string>>& ans, vector<string> &board,
+               int n) {
+        if (col == n) {
             ans.push_back(board);
             return;
         }
-
-        for (int c = 0; c < n; c++) {
-
-            // Check column and diagonals
-            if (col[c] || diag1[row + c] || diag2[row - c + n - 1])
-                continue;
-
-            // Place queen
-            board[row][c] = 'Q';
-
-            col[c] = true;
-            diag1[row + c] = true;
-            diag2[row - c + n - 1] = true;
-
-            solve(row + 1, n, board, col, diag1, diag2);
-
-            // Backtrack
-            board[row][c] = '.';
-
-            col[c] = false;
-            diag1[row + c] = false;
-            diag2[row - c + n - 1] = false;
+        for (int row  = 0; row < n; row++) {
+            if (isSafe(row, col, board, n)) {
+                board[row][col] = 'Q';
+                solve(col + 1, ans, board, n);
+                //backtrack
+                board[row][col] = '.';
+            }
         }
     }
-
     vector<vector<string>> solveNQueens(int n) {
-
-        vector<string> board(n, string(n, '.'));
-
-        vector<bool> col(n, false);
-
-        // There are 2n - 1 diagonals
-        vector<bool> diag1(2 * n - 1, false);
-        vector<bool> diag2(2 * n - 1, false);
-
-        solve(0, n, board, col, diag1, diag2);
-
-        return ans;
-    }
+        vector<vector<string>> ans;
+        vector<string> board(n,string(n,'.'));
+       solve(0,ans,board,n);
+       return ans;
+        }
+    
 };
