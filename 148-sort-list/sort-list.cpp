@@ -8,61 +8,54 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+// class Solution {
+// public:
+//     ListNode* sortList(ListNode* head) {
+
+//     }
+// };
+
 class Solution {
 public:
-
-    ListNode* sortList(ListNode* head) {
-
-        // Base case
-        if (head == nullptr || head->next == nullptr)
-            return head;
-
-        // Find middle
+    ListNode* findMiddle(ListNode* head) {
         ListNode* slow = head;
         ListNode* fast = head->next;
-
-        while (fast != nullptr && fast->next != nullptr) {
+        while (fast != NULL && fast->next != NULL) {
             slow = slow->next;
             fast = fast->next->next;
         }
-
-        // Split list
-        ListNode* second = slow->next;
-        slow->next = nullptr;
-
-        // Sort both halves
-        ListNode* left = sortList(head);
-        ListNode* right = sortList(second);
-
-        // Merge
-        return merge(left, right);
+        return slow;
     }
+    ListNode* mergelinkedlist(ListNode* list1, ListNode* list2) {
+        ListNode* dummyNode = new ListNode(-1);
+        ListNode* temp = dummyNode;
+        while (list1 != NULL && list2 != NULL) {
+            if (list1->val < list2->val) {
+                temp->next = list1;
+                temp = list1;
+                list1 = list1->next;
 
-    ListNode* merge(ListNode* left, ListNode* right) {
-
-        ListNode dummy(0);
-        ListNode* curr = &dummy;
-
-        while (left != nullptr && right != nullptr) {
-
-            if (left->val < right->val) {
-                curr->next = left;
-                left = left->next;
+            } else {
+                temp->next = list2;
+                temp = list2;
+                list2 = list2->next;
             }
-            else {
-                curr->next = right;
-                right = right->next;
-            }
-
-            curr = curr->next;
         }
-
-        if (left != nullptr)
-            curr->next = left;
-
-        if (right != nullptr)
-            curr->next = right;
-
-        return dummy.next;
+        if (list1)
+            temp->next = list1;
+        else
+            temp->next = list2;
+        return dummyNode->next;
+    }
+    ListNode* sortList(ListNode* head) {
+        if (head == NULL || head->next == NULL)
+            return head;
+        ListNode* middle = findMiddle(head);
+        ListNode* right = middle->next;
+        middle->next = nullptr;
+        ListNode* left = head;
+        left = sortList(left);
+        right = sortList(right);
+        return mergelinkedlist(left, right);
     }
 };
