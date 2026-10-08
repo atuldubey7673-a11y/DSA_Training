@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void mergeSort(vector<int>& nums, int l, int h, vector<int> &temp) {
+    void mergeSort(vector<int>& nums, int l, int h, vector<int>& temp) {
 
         if (l == h)
             return;
@@ -30,12 +30,10 @@ public:
         for (int i = l; i <= h; i++) {
             nums[i] = temp[i];
         }
-        
     }
     vector<int> sortArray(vector<int>& nums) {
         vector<int> temp(nums.size());
-        mergeSort(nums, 0, nums.size() - 1,temp);
+        mergeSort(nums, 0, nums.size() - 1, temp);
         return nums;
-       
     }
 };
