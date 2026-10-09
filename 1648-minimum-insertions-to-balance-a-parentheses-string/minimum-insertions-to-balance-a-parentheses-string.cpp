@@ -9,24 +9,24 @@ public:
                 open++;
             } 
             else {
-                // We need pairs of closing parentheses: ))
+             
                 if (i + 1 < s.size() && s[i + 1] == ')') {
-                    i++;  // Consume the second ')'
+                    i++;  
                 } 
                 else {
-                    insertions++; // Insert a missing ')'
+                    insertions++;
                 }
 
                 if (open > 0) {
                     open--;
                 } 
                 else {
-                    insertions++; // Insert a missing '('
+                    insertions++;
                 }
             }
         }
 
-        // Each remaining '(' needs two ')'
+      
         insertions += open * 2;
 
         return insertions;
