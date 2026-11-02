@@ -1,7 +1,7 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        stack<string> st;;
+        stack<string> st;
         stringstream ss(path);
         string s;
 
